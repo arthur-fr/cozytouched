@@ -1,10 +1,10 @@
 // Service worker : l'app s'ouvre même sans réseau (coquille en cache) ; les appels aux serveurs
 // Atlantic ne passent jamais par le cache.
-const VERSION = 'cozytouched-1.1.0-1';
+const VERSION = 'cozytouched-1.1.0-2';
 const SHELL = [
   './', 'index.html', 'app.css', 'manifest.webmanifest',
   'icons/icon.svg', 'icons/apple-touch-icon.png', 'icons/icon-192.png',
-  'js/app.js', 'js/vdom.js', 'js/api.js', 'js/model.js', 'js/demo.js', 'js/store.js', 'js/secret.js', 'js/ui.js', 'js/nav.js',
+  'js/app.js', 'js/vdom.js', 'js/api.js', 'js/model.js', 'js/demo.js', 'js/store.js', 'js/secret.js', 'js/ui.js', 'js/nav.js', 'js/install.js',
   'js/screens/home.js', 'js/screens/room.js', 'js/screens/advanced.js', 'js/screens/program.js',
   'js/screens/absence.js', 'js/screens/devices.js', 'js/screens/shell.js',
 ];

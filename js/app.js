@@ -2,6 +2,7 @@
 import { h, render } from './vdom.js';
 import { S, init, subscribe } from './store.js';
 import { current, nav } from './nav.js';
+import './install.js'; // capte tout de suite la proposition d'installation (Android, Chrome, Edge)
 import { HomeScreen, HomeSkeleton } from './screens/home.js';
 import { RoomScreen } from './screens/room.js';
 import { AdvancedScreen, CapDialog } from './screens/advanced.js';

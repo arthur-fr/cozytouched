@@ -4,19 +4,26 @@ import { S, consumeMessage, invalidate, login, logout, setDerogationHours, start
 import { Caps, absenceHubs, cap } from '../model.js';
 import { closeOverlay, go, nav, resetNav, setDrawer, setOverlay } from '../nav.js';
 import { Button, Chip, Chips, Dialog, Hint, Icon, Logo, SectionLabel, Sheet, TextButton, plural } from '../ui.js';
+import { canPrompt, hideInstall, installHidden, installSteps, platform, promptInstall } from '../install.js';
 
 export const VERSION = '1.1.0';
 
-export const isStandalone = () => window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
-const isIOS = () => /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
-function InstallTip() {
-  if (isStandalone()) return null;
-  return h('div', { class: 'install' },
-    Icon('ios_share'),
-    h('span', null, isIOS()
-      ? 'Pour l\'installer : bouton Partager, puis « Sur l\'écran d\'accueil ». L\'app s\'ouvrira en plein écran, avec son icône.'
-      : 'Ouvrez cette page dans Safari sur iPhone, puis Partager › « Sur l\'écran d\'accueil » pour l\'installer.'));
+/**
+ * Carte « Ajouter à l'écran d'accueil » : consigne adaptée au téléphone et au navigateur, bouton « Installer »
+ * quand le navigateur le propose. Sur l'accueil, elle peut être masquée (choix mémorisé sur l'appareil).
+ */
+export function InstallCard({ dismissible = true } = {}) {
+  const steps = installSteps();
+  if (!steps || (dismissible && installHidden())) return null;
+  const title = platform().os === 'desktop' ? 'Installer Cozytouched' : 'Ajouter Cozytouched à l\'écran d\'accueil';
+  const v = h('section', { class: 'install-card' + (dismissible ? ' card' : '') },
+    h('div', { class: 'install-h' },
+      h('span', { class: 'tile t-info' }, Icon('install_mobile')),
+      h('div', { class: 'tx' }, h('b', null, title), h('span', null, steps)),
+      dismissible ? h('button', { class: 'ibtn sm', 'aria-label': 'Masquer ce conseil', onClick: hideInstall }, Icon('close')) : null),
+    canPrompt() ? Button({ text: 'Installer', icon: 'install_mobile', small: true, onClick: promptInstall }) : null);
+  v.key = 'install';
+  return v;
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -58,9 +65,9 @@ export function LoginScreen() {
         S.loginError ? h('p', { class: 'error', role: 'alert' }, S.loginError) : null,
         h('button', { type: 'submit', class: 'btn fill big', disabled: S.loggingIn }, S.loggingIn ? h('span', { class: 'spinner' }) : 'Se connecter'),
         h('button', { type: 'button', class: 'tbtn wide', onClick: () => { resetNav(); startDemo(); } }, 'Découvrir en mode démo')),
-      InstallTip(),
-      h('p', { class: 'muted small foot' },
-        'Utilise votre compte Atlantic Cozytouch existant. Vous restez connecté : vos identifiants sont chiffrés sur cet appareil et ne sont envoyés qu\'aux serveurs Atlantic.')));
+      h('div', { class: 'reassure', role: 'note' },
+        Icon('verified_user', { fill: true }),
+        h('p', null, 'Utilisez votre compte Atlantic Cozytouch existant. Vos identifiants sont stockés de façon sécurisée en local sur votre appareil et sont envoyés uniquement aux serveurs Atlantic.'))));
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -108,9 +115,9 @@ export function SettingsSheet() {
       SectionLabel('Durée du forçage temporaire'),
       h('p', { class: 'muted small' }, 'Quand une pièce est en planning, modifier la consigne la force pendant cette durée.'),
       Chips([1, 2, 4, 8, 12, 24].map(hh => Chip({ label: `${hh} h`, selected: S.derogationHours === hh, onClick: () => setDerogationHours(hh) })), true),
-      InstallTip(),
+      InstallCard({ dismissible: false }),
       Button({ text: S.demo ? 'Quitter le mode démo' : 'Se déconnecter', icon: 'logout', kind: 'out', onClick: () => setOverlay({ type: 'logout' }) }),
-      h('p', { class: 'muted small' }, `Cozytouched ${VERSION} (web) · client non officiel, sans lien avec Groupe Atlantic. Utilise les mêmes services cloud que l'application Cozytouch.`),
+      h('p', { class: 'muted small' }, `Cozytouched ${VERSION} (web, iPhone et Android) · client non officiel, sans lien avec Groupe Atlantic. Utilise les mêmes services cloud que l'application Cozytouch.`),
     ],
   });
 }

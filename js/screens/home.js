@@ -5,6 +5,7 @@ import {
 } from '../store.js';
 import { Caps, FAN, COOL, MgWrites, absenceHubs, absencePeriod, cap, displayName, has } from '../model.js';
 import { nav, open, go, setDrawer } from '../nav.js';
+import { InstallCard } from './shell.js';
 import {
   Banner, Button, Card, Content, Dots, Hint, Icon, IconTile, OptionRow, Pill, Segmented, Stepper, Switch, TextButton,
   TopBar, fmtC, fmtDay, fmtDuration, fmtTime, modeKeyOf, plural, relativeAgo,
@@ -188,6 +189,7 @@ export function HomeScreen(now) {
     }),
     Content(
       ...banners().map(b => keyed(Banner(b), b.key)),
+      InstallCard(),
       ...rooms.map(RoomCard),
       rooms.length > 1 ? keyed(h('button', { class: 'order-hint', onClick: startReorder }, Icon('swap_vert'), "Appui long sur une carte pour changer l'ordre"), 'order-hint') : null,
       ...S.home.dhws.map(DhwCard),

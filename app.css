@@ -4,6 +4,7 @@
   --heat: #E8590C; --heat-bg: #FFF0E6; --cool: #0B84D6; --cool-bg: #E6F3FC; --auto: #7A4CE0; --auto-bg: #F1ECFD;
   --fan: #5D6B82; --fan-bg: #EEF1F5; --dry: #0E9384; --dry-bg: #E3F5F2;
   --primary: #101828; --on-primary: #FFFFFF; --danger: #D92D20; --danger-bg: #FEECEB; --ok: #12B76A;
+  --ok-bg: #ECFDF3; --ok-line: #ABEFC6; --ok-ink: #067647;
   --info: #3056D3; --info-bg: #EAF0FF; --warn: #B54708; --warn-bg: #FFF4E5;
   --scrim: rgba(16, 24, 40, .45); --shadow: 0 1px 2px rgba(16, 24, 40, .05), 0 1px 3px rgba(16, 24, 40, .07);
   --sat: env(safe-area-inset-top, 0px); --sab: env(safe-area-inset-bottom, 0px);
@@ -16,6 +17,7 @@
     --heat: #FF8A4C; --heat-bg: #3A2620; --cool: #4DB5FF; --cool-bg: #17304A; --auto: #A98BFF; --auto-bg: #2A2547;
     --fan: #9AA6B8; --fan-bg: #262D38; --dry: #3CCFBE; --dry-bg: #173834;
     --primary: #E9EDF2; --on-primary: #0D1117; --danger: #FF6B5E; --danger-bg: #3A1D1B; --ok: #32D583;
+    --ok-bg: #0F2A1C; --ok-line: #1D4D33; --ok-ink: #75E0A7;
     --info: #9DB4FF; --info-bg: #1E2640; --warn: #FDB022; --warn-bg: #3A2E15;
     --scrim: rgba(0, 0, 0, .6); --shadow: none;
     color-scheme: dark;
@@ -429,7 +431,21 @@ h1, h2, h3, p { margin: 0; }
 .input input { flex: 1; min-width: 0; height: 100%; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: 16px; outline: none; -webkit-appearance: none; appearance: none; }
 .error { color: var(--danger); font-size: 14px; }
 .spinner { width: 22px; height: 22px; border-radius: 50%; border: 2.5px solid currentColor; border-right-color: transparent; animation: spin .8s linear infinite; }
-.install { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--muted); background: var(--surface2); border-radius: 14px; padding: 12px 14px; margin-top: 24px; width: 100%; }
-.install .ms { color: var(--info); font-size: 20px; }
-.sheet .install { margin-top: 6px; }
-.login .foot { margin-top: auto; padding-top: 24px; text-align: center; }
+.reassure {
+  display: flex; gap: 12px; align-items: flex-start; width: 100%; margin-top: 24px; padding: 14px 16px;
+  background: var(--ok-bg); border: 1px solid var(--ok-line); border-radius: 16px; color: var(--ok-ink);
+}
+.reassure .ms { font-size: 24px; margin-top: 1px; }
+.reassure p { font-size: 13.5px; line-height: 1.45; color: var(--ink); }
+
+/* carte « Ajouter à l'écran d'accueil » (accueil, paramètres) */
+.install-card { display: flex; flex-direction: column; gap: 12px; padding: 12px 6px 12px 14px; }
+.install-card .btn { width: calc(100% - 8px); }
+.install-h { display: flex; gap: 12px; align-items: flex-start; }
+.install-h .tile { margin-top: 2px; }
+.install-h .tx { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; padding-top: 2px; }
+.install-h .tx b { font-size: 14.5px; font-weight: 600; }
+.install-h .tx span { font-size: 12.5px; color: var(--muted); line-height: 1.4; }
+.install-h .ibtn { margin: -6px 0 0; color: var(--muted); }
+.sheet .install-card { background: var(--surface2); border-radius: 16px; padding: 12px 14px; margin-top: 6px; }
+.sheet .install-card .btn { width: 100%; }
