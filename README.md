@@ -1,7 +1,7 @@
 # Cozytouched (web : iPhone et Android)
 
 Client simple et rapide pour les splits et chauffages **Atlantic Cozytouch** (appareils Wi-Fi / Bridge V2, API Magellan),
-en version web installable sur **iPhone et Android**. C'est le portage de l'app Android Cozytouched (interface « Épure »).
+en version web installable sur **iPhone et Android**.
 
 Adresse : https://arthur-fr.github.io/cozytouched/
 
@@ -27,10 +27,9 @@ Une fois installée, Cozytouched s'ouvre en plein écran depuis son icône, comm
 * Identifiants : jeton de session et mot de passe chiffré (AES-GCM, clé non exportable) gardés sur l'appareil, envoyés
   uniquement aux serveurs Atlantic.
 * Mode démo sans compte. Thème Auto (selon le téléphone), Clair ou Sombre, au choix dans Paramètres.
-* Non géré dans la version web : appareils « Cozytouch bridge » historiques (API Overkiz) et widget d'écran d'accueil
-  (sur Android, l'app native Cozytouched propose un widget).
+* Non géré dans la version web : appareils « Cozytouch bridge » historiques (API Overkiz)
 
 ## Avertissement
 
 Projet personnel non officiel, sans lien avec Groupe Atlantic. Il utilise les mêmes services cloud que l'application
-officielle, avec votre propre compte ; ces API ne sont pas documentées publiquement et peuvent changer sans préavis.
+officielle, avec votre propre compte.
