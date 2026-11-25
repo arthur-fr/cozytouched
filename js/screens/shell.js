@@ -3,7 +3,8 @@ import { h } from '../vdom.js';
 import { S, consumeMessage, invalidate, login, logout, setDerogationHours, startDemo } from '../store.js';
 import { Caps, absenceHubs, cap } from '../model.js';
 import { closeOverlay, go, nav, resetNav, setDrawer, setOverlay } from '../nav.js';
-import { Button, Chip, Chips, Dialog, Hint, Icon, Logo, SectionLabel, Sheet, TextButton, plural } from '../ui.js';
+import { Button, Chip, Chips, Dialog, Hint, Icon, Logo, SectionLabel, Segmented, Sheet, TextButton, plural } from '../ui.js';
+import { getTheme, setTheme } from '../theme.js';
 import { canPrompt, hideInstall, installHidden, installSteps, platform, promptInstall } from '../install.js';
 
 export const VERSION = '1.1.0';
@@ -112,6 +113,17 @@ export function SettingsSheet() {
       h('div', { class: 'row first' },
         h('span', { class: 'tile' }, Icon('account_circle')),
         h('div', { class: 'tx' }, h('b', null, S.demo ? 'Mode démo' : S.email || '—'), h('span', null, 'Compte Atlantic Cozytouch'))),
+      SectionLabel('Apparence'),
+      Segmented({
+        options: [
+          { value: 'auto', label: 'Auto', icon: 'brightness_auto' },
+          { value: 'light', label: 'Clair', icon: 'light_mode' },
+          { value: 'dark', label: 'Sombre', icon: 'dark_mode' },
+        ],
+        selected: getTheme(),
+        onSelect: setTheme,
+      }),
+      h('p', { class: 'muted small' }, getTheme() === 'auto' ? 'Auto : suit le réglage clair / sombre du téléphone.' : 'Ce choix est enregistré sur cet appareil.'),
       SectionLabel('Durée du forçage temporaire'),
       h('p', { class: 'muted small' }, 'Quand une pièce est en planning, modifier la consigne la force pendant cette durée.'),
       Chips([1, 2, 4, 8, 12, 24].map(hh => Chip({ label: `${hh} h`, selected: S.derogationHours === hh, onClick: () => setDerogationHours(hh) })), true),

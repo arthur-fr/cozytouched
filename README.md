@@ -26,7 +26,7 @@ Une fois installée, Cozytouched s'ouvre en plein écran depuis son icône, comm
   (`apis.groupe-atlantic.com`), aucun serveur intermédiaire.
 * Identifiants : jeton de session et mot de passe chiffré (AES-GCM, clé non exportable) gardés sur l'appareil, envoyés
   uniquement aux serveurs Atlantic.
-* Mode démo sans compte. Thème clair / sombre selon le téléphone.
+* Mode démo sans compte. Thème Auto (selon le téléphone), Clair ou Sombre, au choix dans Paramètres.
 * Non géré dans la version web : appareils « Cozytouch bridge » historiques (API Overkiz) et widget d'écran d'accueil
   (sur Android, l'app native Cozytouched propose un widget).
 

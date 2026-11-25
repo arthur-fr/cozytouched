@@ -61,7 +61,9 @@ function draw() {
 function invalidate() {
   if (scheduled) return;
   scheduled = true;
-  requestAnimationFrame(draw);
+  requestAnimationFrame(() => { if (scheduled) draw(); });
+  // Filet de sécurité si le navigateur suspend les images (onglet en arrière-plan) : l'écran reste à jour.
+  setTimeout(() => { if (scheduled) draw(); }, 120);
 }
 
 subscribe(invalidate);

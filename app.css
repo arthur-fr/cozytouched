@@ -11,18 +11,30 @@
   --sal: env(safe-area-inset-left, 0px); --sar: env(safe-area-inset-right, 0px);
   color-scheme: light;
 }
+/* Thème sombre : selon le téléphone (Auto), ou forcé dans Paramètres (data-theme sur <html>). */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #0D1117; --surface: #161B22; --surface2: #202733; --ink: #E9EDF2; --muted: #98A2B3; --line: #262E39; --track: #3A424E;
     --heat: #FF8A4C; --heat-bg: #3A2620; --cool: #4DB5FF; --cool-bg: #17304A; --auto: #A98BFF; --auto-bg: #2A2547;
     --fan: #9AA6B8; --fan-bg: #262D38; --dry: #3CCFBE; --dry-bg: #173834;
     --primary: #E9EDF2; --on-primary: #0D1117; --danger: #FF6B5E; --danger-bg: #3A1D1B; --ok: #32D583;
     --ok-bg: #0F2A1C; --ok-line: #1D4D33; --ok-ink: #75E0A7;
     --info: #9DB4FF; --info-bg: #1E2640; --warn: #FDB022; --warn-bg: #3A2E15;
-    --scrim: rgba(0, 0, 0, .6); --shadow: none;
+    --scrim: rgba(0, 0, 0, .6); --shadow: none; --step-b: var(--line);
     color-scheme: dark;
   }
 }
+:root[data-theme="dark"] {
+  --bg: #0D1117; --surface: #161B22; --surface2: #202733; --ink: #E9EDF2; --muted: #98A2B3; --line: #262E39; --track: #3A424E;
+  --heat: #FF8A4C; --heat-bg: #3A2620; --cool: #4DB5FF; --cool-bg: #17304A; --auto: #A98BFF; --auto-bg: #2A2547;
+  --fan: #9AA6B8; --fan-bg: #262D38; --dry: #3CCFBE; --dry-bg: #173834;
+  --primary: #E9EDF2; --on-primary: #0D1117; --danger: #FF6B5E; --danger-bg: #3A1D1B; --ok: #32D583;
+  --ok-bg: #0F2A1C; --ok-line: #1D4D33; --ok-ink: #75E0A7;
+  --info: #9DB4FF; --info-bg: #1E2640; --warn: #FDB022; --warn-bg: #3A2E15;
+  --scrim: rgba(0, 0, 0, .6); --shadow: none; --step-b: var(--line);
+  color-scheme: dark;
+}
+:root[data-theme="light"] { color-scheme: light; }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; background: var(--bg); }
@@ -176,7 +188,7 @@ h1, h2, h3, p { margin: 0; }
 .step .b:active:not(:disabled) { transform: scale(.94); }
 .step .v { min-width: 62px; text-align: center; font-weight: 600; font-size: 17px; font-variant-numeric: tabular-nums; }
 .step.drafting .v { color: var(--c, var(--ink)); }
-@media (prefers-color-scheme: dark) { .step .b { border: 1px solid var(--line); } }
+.step .b { border: 1px solid var(--step-b, transparent); }
 .bigstep { display: flex; align-items: center; justify-content: space-between; }
 .bigstep .b { width: 60px; height: 60px; border-radius: 50%; background: var(--surface2); display: grid; place-items: center; color: var(--ink); }
 .bigstep .b .ms { font-size: 28px; }
